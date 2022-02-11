@@ -3,6 +3,7 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"license": "MIT",
+	"author": "Jaezmien Naejara",
 	"dependencies": {
 		"discord.js": "^13.6.0",
 		"prompts": "^2.4.2",
