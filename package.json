@@ -1,0 +1,14 @@
+{
+	"name": "discord-channel-archiver",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"dependencies": {
+		"discord.js": "^13.6.0",
+		"prompts": "^2.4.2",
+		"xlsx": "^0.18.0"
+	},
+	"scripts": {
+		"start": "node index.js"
+	}
+}
