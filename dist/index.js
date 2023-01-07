@@ -170,8 +170,6 @@ function archive_channel(channel, output_path, cache_path) {
           const thread = channel.threads.cache.get(threadID);
           if (!thread)
             continue;
-          if (thread.joinable)
-            yield thread.join();
           const THREAD_CACHE_PATH = import_path.default.join(cache_path, thread.id + ".json");
           let THREAD_CACHE = {
             name: channel.name,
@@ -209,8 +207,6 @@ function archive_channel(channel, output_path, cache_path) {
         const post = channel.threads.cache.get(postID);
         if (!post)
           continue;
-        if (post.joinable)
-          yield post.join();
         const POST_CACHE_PATH = import_path.default.join(cache_path, post.id + ".json");
         let POST_CACHE = {
           name: post.name,

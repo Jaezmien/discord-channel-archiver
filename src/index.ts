@@ -172,7 +172,6 @@ export default async function archive_channel(
 			for (const threadID of threads) {
 				const thread = channel.threads.cache.get(threadID)
 				if (!thread) continue
-				if (thread.joinable) await thread.join()
 
 				const THREAD_CACHE_PATH = path.join(cache_path, thread.id + '.json')
 				let THREAD_CACHE = {
@@ -218,7 +217,6 @@ export default async function archive_channel(
 		for (const postID of posts) {
 			const post = channel.threads.cache.get(postID)
 			if (!post) continue
-			if (post.joinable) await post.join()
 
 			const POST_CACHE_PATH = path.join(cache_path, post.id + '.json')
 			let POST_CACHE = {
