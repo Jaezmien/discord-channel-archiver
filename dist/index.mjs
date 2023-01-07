@@ -39,10 +39,10 @@ import prompts from "prompts";
 import sanitize from "sanitize-filename";
 import xlsx from "xlsx";
 var ROOT_PATH = path.normalize(path.resolve(__dirname, "../")) + "/";
-function format_message(id, msg) {
+function format_message(msg) {
   var _a, _b, _c, _d;
   const data = {
-    MessageID: id,
+    MessageID: msg.id,
     AuthorID: (_b = (_a = msg.author) == null ? void 0 : _a.id) != null ? _b : "-1",
     Author: (_d = (_c = msg.author) == null ? void 0 : _c.tag) != null ? _d : "Deleted User#0000",
     Date: new Date(msg.createdTimestamp).toUTCString(),
@@ -88,7 +88,7 @@ function fetch_new_messages(channel, latestMessageID) {
         const [id, message] = partial_message;
         if (id === latestMessageID)
           break;
-        messages.push(format_message(id, message));
+        messages.push(format_message(message));
       }
       lastSearchedID = partial.last().id;
       if (Array.from(partial).length != PARTIAL_LIMIT || partial.get(latestMessageID))
@@ -166,6 +166,9 @@ function archive_channel(channel, output_path, cache_path) {
             thread,
             (_b = THREAD_CACHE.messages[THREAD_CACHE.messages.length - 1]) == null ? void 0 : _b.MessageID
           );
+          const starterMessage = yield thread.fetchStarterMessage();
+          if (starterMessage)
+            messages2.unshift(format_message(starterMessage));
           if (messages2.length) {
             THREAD_CACHE.messages.push(...messages2);
             fs.writeFileSync(THREAD_CACHE_PATH, JSON.stringify(THREAD_CACHE));
@@ -203,6 +206,9 @@ function archive_channel(channel, output_path, cache_path) {
           post,
           (_c = POST_CACHE.messages[POST_CACHE.messages.length - 1]) == null ? void 0 : _c.MessageID
         );
+        const starterMessage = yield post.fetchStarterMessage();
+        if (starterMessage)
+          messages.unshift(format_message(starterMessage));
         if (messages.length) {
           POST_CACHE.messages.push(...messages);
           fs.writeFileSync(POST_CACHE_PATH, JSON.stringify(POST_CACHE));
