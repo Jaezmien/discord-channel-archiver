@@ -26,9 +26,9 @@ interface ExportMessage {
 	Attachments: string
 	Reactions: string
 }
-function format_message(id: string, msg: Message): ExportMessage {
+function format_message(msg: Message): ExportMessage {
 	const data = {
-		MessageID: id,
+		MessageID: msg.id,
 		AuthorID: msg.author?.id ?? '-1',
 		Author: msg.author?.tag ?? 'Deleted User#0000',
 		Date: new Date(msg.createdTimestamp).toUTCString(),
@@ -82,7 +82,7 @@ export async function fetch_new_messages(
 			const [id, message] = partial_message
 
 			if (id === latestMessageID) break
-			messages.push(format_message(id, message))
+			messages.push(format_message(message))
 		}
 
 		lastSearchedID = partial.last()!.id
@@ -189,6 +189,8 @@ export default async function archive_channel(
 					thread,
 					THREAD_CACHE.messages[THREAD_CACHE.messages.length - 1]?.MessageID
 				)
+				const starterMessage = await thread.fetchStarterMessage()
+				if (starterMessage) messages.unshift(format_message(starterMessage))
 
 				if (messages.length) {
 					THREAD_CACHE.messages.push(...messages)
@@ -234,6 +236,8 @@ export default async function archive_channel(
 				post,
 				POST_CACHE.messages[POST_CACHE.messages.length - 1]?.MessageID
 			)
+			const starterMessage = await post.fetchStarterMessage()
+			if (starterMessage) messages.unshift(format_message(starterMessage))
 
 			if (messages.length) {
 				POST_CACHE.messages.push(...messages)
