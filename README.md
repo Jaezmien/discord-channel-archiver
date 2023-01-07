@@ -2,9 +2,7 @@
 
 # Discord Channel Archiver
 
-Quickly archive channels using a bot account.
-
-Exports into the .xlsx format, with every channel exported in its own sheet.
+Quickly archive channels, threads, and forums using a bot account.
 
 Fast archival via caching.
 
@@ -24,6 +22,7 @@ If this doesn't suit your needs, it's recommended to use [Discord Chat Exporter]
 
 ```
 $ git clone https://github.com/Jaezmien/DiscordChannelArchiver
-$ yarn install
+$ yarn
+$ yarn build
 $ yarn start
 ```

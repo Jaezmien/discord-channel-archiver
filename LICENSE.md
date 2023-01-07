@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2022 Jaezmien V. Naejara
+Copyright (c) 2023 Jaezmien Naejara
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
