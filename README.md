@@ -23,6 +23,5 @@ If this doesn't suit your needs, it's recommended to use [Discord Chat Exporter]
 ```
 $ git clone https://github.com/Jaezmien/DiscordChannelArchiver
 $ yarn
-$ yarn build
 $ yarn start
 ```
