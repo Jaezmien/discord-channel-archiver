@@ -58,7 +58,7 @@ var import_sanitize_filename = __toESM(require("sanitize-filename"));
 var import_xlsx = __toESM(require("xlsx"));
 var ROOT_PATH = import_path.default.normalize(import_path.default.resolve(__dirname, "../")) + "/";
 function format_message(msg) {
-  var _a, _b, _c, _d;
+  var _a, _b, _c, _d, _e;
   const data = {
     MessageID: msg.id,
     AuthorID: (_b = (_a = msg.author) == null ? void 0 : _a.id) != null ? _b : "-1",
@@ -72,7 +72,7 @@ function format_message(msg) {
     data.Content = msg.cleanContent;
   else if (msg.embeds.length == 1) {
     const embed = msg.embeds[0];
-    data.Content = [embed.title, embed.description].filter((x) => x).join("\n");
+    data.Content = [embed.title, embed.description, (_e = embed.footer) == null ? void 0 : _e.text].filter((x) => x).join("\n");
   }
   if (msg.attachments) {
     data.Attachments = msg.attachments.map((att) => att.url).join(", ");

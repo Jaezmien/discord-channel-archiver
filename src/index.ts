@@ -40,7 +40,7 @@ function format_message(msg: Message): ExportMessage {
 	if (msg.cleanContent) data.Content = msg.cleanContent
 	else if (msg.embeds.length == 1) {
 		const embed = msg.embeds[0]
-		data.Content = [embed.title, embed.description].filter((x) => x).join('\n')
+		data.Content = [embed.title, embed.description, embed.footer?.text].filter((x) => x).join('\n')
 	}
 
 	if (msg.attachments) {
