@@ -13,8 +13,11 @@ import fs from 'fs'
 import path from 'path'
 import prompts from 'prompts'
 import sanitize from 'sanitize-filename'
+import { fileURLToPath } from 'url'
 import xlsx from 'xlsx'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 const ROOT_PATH = path.normalize(path.resolve(__dirname, '../')) + '/'
 
 interface ExportMessage {
@@ -175,7 +178,7 @@ export default async function archive_channel(
 
 				const THREAD_CACHE_PATH = path.join(cache_path, thread.id + '.json')
 				let THREAD_CACHE = {
-					name: channel.name,
+					name: thread.name,
 					messages: [],
 				} as ChannelCache
 
@@ -341,7 +344,7 @@ function main(client: Client) {
 }
 
 // Allow running as CLI
-if (require.main === module) {
+if (import.meta.url.startsWith('file:') && process.argv[1] === __filename) {
 	const client = new Client({
 		intents: [
 			GatewayIntentBits.Guilds,
